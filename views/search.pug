@@ -1,0 +1,22 @@
+extends base
+
+block content
+    div(ng-controller="SearchBookController")
+        div(class="col-xs-10 col-xs-offset-1 col-lg-4 col-lg-offset-4")
+            .container-fluid
+                div(data-alerts="alerts")
+            img(src='../img/logo.png', alt='')
+            form(id="search-form", ng-submit="sendForm()")
+
+                .form-group.text-center
+                    br
+                    label(for="search_term") #[h4 Hacé tu búsqueda acá...]
+                    br
+                    input(id='search_term', name='search_term', type='text', 
+                            placeholder='Ejemplo: Don quijote', ng-model="form.search_term", class="form-control custom-input", valor="form.search_term", required="")
+            div(ng-show="buscando" ng-cloak)
+                .rectangulo
+                    br
+                    h4 Por favor, espere unos segundos...
+                    br
+        include results.pug
