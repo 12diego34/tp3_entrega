@@ -2,10 +2,21 @@ var express = require('express');
 var router = express.Router();
 
 var Libro = require('../models/libro');
-
 var books = require('google-books-search');
 
 /* GET index page. */
+router.get('/', function(req, res, next) {
+    res.render('index', { title: 'Libreria del Viento' });
+});
+
+router.get('/buscar', function(req, res, next) {
+    res.render('search', { title: 'Buscar' });
+});
+
+router.get('/catalogo', function(req, res, next) {
+    res.render('catalogo', { title: 'Catalogo' });
+});
+
 router.get('/', function(req, res, next) {
     var query = {};
     //if (req.query.title)
@@ -66,9 +77,8 @@ function rankear(id, res, next){
     Libro.findOne({_id: req.params.id}, function(error, libro) {
         libro.save().then(function (libro) {
         res.json(libro);
+        });
     });
-});
-
 }
-module.exports = router;
- 
+
+module.exports = router; 

@@ -22,7 +22,7 @@ function SearchBookController($scope, $http, $routeParams) {
     $scope.busqueda = false;
     $scope.sendForm = function () {
         $scope.buscando = true;
-        $http.post('/books/search', $scope.form)
+        $http.post('/api/search', $scope.form)
             .then(function(result) {
                 $scope.busqueda = true;
                 $scope.buscando = false;
