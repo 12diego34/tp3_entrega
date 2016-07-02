@@ -4,46 +4,48 @@ var router = express.Router();
 var Libro = require('../models/libro');
 var books = require('google-books-search');
 
-/* GET index page. */
+/* index. */
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Libreria del Viento' });
 });
 
+/* buscar. */
 router.get('/buscar', function(req, res, next) {
     res.render('search', { title: 'Buscar' });
 });
 
+/* catalogo. */
 router.get('/catalogo', function(req, res, next) {
     res.render('catalogo', { title: 'Catalogo' });
 });
 
-router.get('/', function(req, res, next) {
+/* todos los libros. */
+router.get('/l/all', function(req, res, next) {
     var query = {};
-    //if (req.query.title)
-      //  query["gbook.title"] = new RegExp(req.query.title, 'i');
     Libro.find(query, function(err, libros) {
         res.json(libros)
     });
 });
 
-router.get('/:id', function(req, res, next) {
+/* un libro especifico. */
+router.get('/l/:id', function(req, res, next) {
     Libro.findOne({_id: req.params.id}, function(error, libro) {
         res.json(libro);
     });
 });
 
-router.post('/', function(req, res, next) {
+router.post('/l/new', function(req, res, next) {
     var libro = new Libro(req.body);
     libro.save().then(function (libro) {
         res.json(libro);
     });
 });
 
-router.put('/', function(req, res, next) {
+router.put('/l/update', function(req, res, next) {
     res.json({ message: 'modificado' });
 });
 
-router.delete('/', function(req, res, next) {
+router.delete('/l/delete', function(req, res, next) {
     res.json({ message: 'Borrado' });
 });
 
