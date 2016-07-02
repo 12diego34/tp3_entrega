@@ -1,28 +1,43 @@
-angular.module('bookSearchClient', ["ngRoute"])
-.controller('SearchBookController', SearchBookController)
-.controller('ShowBookController', ShowBookController)
+angular.module('myApp', ["ngRoute"])
+.controller('MostrarLibrosController', MostrarLibrosController)
 
-function ShowBookController($scope, $http, $routeParams) {
-    $scope.showBook = function(){
-        var id = this.resultado.id;
-        $http.get('/books/show/' + id)
-            .then(function(result){
-                console.log(JSON.stringify(result.data.book, null, 2));
-                var book = result.data.book;
-                var $title = $('#modal-info-libro .modal-title .titulo');
-            }, function(error){
-                console.log("error!", error.responseText);
-            });
-    }
+function MostrarLibrosController($scope, $http, $routeParams) {
+    $scope.resultados = {};       
+    $http.get('/l/all')
+        .success(function(data) {
+            $scope.libros = data;
+            console.log(data)
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
 }
+/*
+function UpController($scope) {
+    function($scope) {
+    $scope.ranking_up = 0;
 
+});
+    
+function DownController($scope, $http, $routeParams) {
+    $scope.resultados = {};       
+    $http.get('/l/all')
+        .success(function(data) {
+            $scope.libros = data;
+            console.log(data)
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+}
+*/
 function SearchBookController($scope, $http, $routeParams) {
     $scope.form = {};
     $scope.resultados = {};
     $scope.busqueda = false;
     $scope.sendForm = function () {
         $scope.buscando = true;
-        $http.post('/api/search', $scope.form)
+        $http.post('api/search/:title', $scope.form)
             .then(function(result) {
                 $scope.busqueda = true;
                 $scope.buscando = false;
@@ -34,16 +49,11 @@ function SearchBookController($scope, $http, $routeParams) {
     };
 }
 
-angular.module('LibroApp', [])
-.controller('LibroController', LibroController);
-
-function LibroController($scope, $http) {
+/*function LibroController($scope, $http) {
     $scope.newLibro = {};
     $scope.libros = {};
     $scope.selected = false;
-
-    // Obtenemos todos los datos de la base de datos
-    $http.get('/catalogo').success(function(data) {
+    $http.get('/l/all').success(function(data) {
         $scope.libros = data;
     })
     .error(function(data) {
@@ -52,7 +62,7 @@ function LibroController($scope, $http) {
 
     // Función para registrar a un libro
     $scope.registrarLibro = function() {
-        $http.post('/api/libro', $scope.newLibro)
+        $http.post('/l/new', $scope.newLibro)
         .success(function(data) {
                 $scope.newLibro = {}; // Borramos los datos del formulario
                 $scope.libros = data;
@@ -64,7 +74,7 @@ function LibroController($scope, $http) {
 
     // Función para editar los datos de un libro
     $scope.modificarLibro = function(newLibro) {
-        $http.put('/api/libro/' + $scope.newLibro._id, $scope.newLibro)
+        $http.put('/l/update/' + $scope.newLibro._id, $scope.newLibro)
         .success(function(data) {
                 $scope.newLibro = {}; // Borramos los datos del formulario
                 $scope.libros = data;
@@ -77,7 +87,7 @@ function LibroController($scope, $http) {
 
     // Función que borra un objeto libro conocido su id
     $scope.borrarLibro = function(newLibro) {
-        $http.delete('/api/libro/' + $scope.newLibro._id)
+        $http.delete('/l/delete/' + $scope.newLibro._id)
         .success(function(data) {
             $scope.newLibro = {};
             $scope.libros = data;
@@ -95,3 +105,4 @@ function LibroController($scope, $http) {
         console.log($scope.newLibro, $scope.selected);
     };
 }
+*/

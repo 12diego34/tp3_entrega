@@ -1,5 +1,5 @@
 doctype html
-html(ng-app='bookSearchClient')
+html(ng-app='myApp')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
@@ -14,12 +14,6 @@ html(ng-app='bookSearchClient')
     script(type='text/javascript', src='../js/bootstrap.min.js')
     script(type='text/javascript', src='../js/modernizr.js')
     script(type='text/javascript', src='../js/responsee.js')
-    
-    script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js")
-    script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js")
-    script(src="../js/client-app.js")
-    script(src="../js/controllers.js")
-    //script(src="../js/controlador.js")
     link(rel='stylesheet', href='../owl-carousel/owl.carousel.css')
     link(rel='stylesheet', href='../owl-carousel/owl.theme.css')
     script(type='text/javascript', src='../owl-carousel/owl.carousel.js')
@@ -40,8 +34,9 @@ html(ng-app='bookSearchClient')
           singleItem:true
           });
       });       
-    
-
+    script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js")
+    script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js")
+    script(src="../js/controlador.js")
   body.size-1140
     header
       nav
@@ -71,8 +66,6 @@ html(ng-app='bookSearchClient')
               ul.top-ul.chevron
                 li
                   a(href="/catalogo") Catalogo
-                li
-                  a(href='/calificar.html') Contacto    
     section    
       block carousel
       #first-block

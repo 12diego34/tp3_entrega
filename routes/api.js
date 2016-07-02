@@ -14,7 +14,6 @@ router.get('/buscar', function(req, res, next) {
     res.render('search', { title: 'Buscar' });
 });
 
-/* catalogo. */
 router.get('/catalogo', function(req, res, next) {
     res.render('catalogo', { title: 'Catalogo' });
 });

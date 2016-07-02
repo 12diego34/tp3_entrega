@@ -1,5 +1,5 @@
 div(class="listado")
-    div(class="col-xs-12 col-lg-8 col-lg-offset-2", ng-controller="ShowBookController")
+    div(class="col-xs-12 col-lg-8 col-lg-offset-2", ng-controller="myCtrl")
         div(ng-if="resultados && resultados.length > 0" ng-cloak)
             br
             table.table-responsive
@@ -34,4 +34,4 @@ div(class="listado")
 
         div(ng-if="resultados && resultados.length === 0 && busqueda" ng-cloak)
             br
-            h4.text-center No se encontraron resultados para "{{form.search_term}}"
+            h4.text-center No se encontraron resultados para "{{form.title}}"

@@ -1,67 +1,37 @@
 extends base
 block catalogo
 
-  html(ng-controller="LibroApp")
-    head
-      
-      title Catalogo
-      
-      link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
-      script(src="../js/client-app.js")
-      script(src="../js/controllers.js")
-
-
-
-    body(ng-controller='LibroController')
-    div(class="col-xs-12 col-lg-8 col-lg-offset-2")
-      .container
-        .jumbotron.text-center(ng-prueba='')
-          h1
-            | Libros catalogados: 
-            span.label.label-success {{ libro.length }}
-        .row
-          .col-sm-12.col-sm-offset-1
-          .table-responsive
-            table.table.table-striped.table-hover
-              tr.info
-                td ISBN
-                td Nombre
-                td Precio
-                td Editorial
-                td Autor
-                td Ranking
-                td Genero
-                td Paginas
-              tr(ng-repeat='libro in libros', ng-click='selectLibro(libro)')
-                td {{ libro.isbn }}
-                td {{ libro.nombre }}
-                td {{ libro.preciolocal }}
-                td {{ libro.editorial}}
-                td {{ libro.autor }}
-                td {{ libro.ranking }}
-                td {{ libro.genero }}
-                td {{ libro.paginas }}
-          
-          <div class="col-sm-4 col-sm-offset-1 text-center">
-          <form name="myForm">
-          <div class="form-group">
-          <input type="text" class="form-control input-lg text-center" placeholder="ISBN" ng-model="newLibro.isbn" required>
-          <br>
-          <input type="text" class="form-control input-lg text-center" placeholder="Nombre" ng-model="newLibro.nombre" required>
-          <br>
-          <input type="text" class="form-control input-lg text-center" placeholder="Precio" ng-model="newLibro.preciolocal" required>
-          <br>
-          <input type="text" class="form-control input-lg text-center" placeholder="Editorial" ng-model="newLibro.editorial" required>
-          <br>
-          <input type="text" class="form-control input-lg text-center" placeholder="Autor" ng-model="newLibro.autor" required>
-          <br>
-          <input type="text" class="form-control input-lg text-center" placeholder="Ranking" ng-model="newLibro.ranking" required>
-          <br>
-          <input type="text" class="form-control input-lg text-center" placeholder="Genero" ng-model="newLibro.genero" required>
-          <br>
-          <input type="text" class="form-control input-lg text-center" placeholder="Pagina" ng-model="newLibro.paginas" required>
-          </div>
-          <! Acciones que podemos realizar en el formulario>
-          <button type="submit" class="btn btn-success btn-lg" ng-click="registrarLibro()" ng-disabled="myForm.$invalid || selected">Registrar</button>
-          <button type="submit" class="btn btn-warning btn-lg" ng-click="modificarLibro(newLibro)" ng-disabled="!newPersona.nombre || !newPersona.apellido || !newPersona.edad || !selected">Modificar</button>
-          <button type="submit" class="btn btn-danger btn-lg" ng-click="borrarPersona(newPersona)" ng-disabled="!newPersona.nombre || !newPersona.apellido || !newPersona.edad || !selected">Borrar</button>
+  head 
+    title Catalogo
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
+    
+  body(ng-controller="MostrarLibrosController")
+    .container
+      .jumbotron.text-center(ng-prueba='')
+          h3
+            |{{ libros.length }} libros
+          div(ng-if="libros && libros.length > 0" ng-cloak)
+              table.table-responsive
+                  thead.cabecera-tabla
+                      tr: th Libro
+                          th Título
+                          th Precio
+                          th Up
+                          th Down
+                  tbody
+                      tr(ng-repeat="libro in libros")
+                          td(ng-if="libro.thumbnail"): img(ng-src="{{libro.thumbnail}}", class="tapa-libro")
+                          td(ng-if="!libro.thumbnail && libro.imageLinks"): img(ng-src="libro.imageLinks.thumbnail", class="tapa-libro")
+                          td(ng-if="!libro.thumbnail && !libro.imageLinks"): img(ng-src='https://s-media-cache-ak0.pinimg.com/236x/19/c8/9c/19c89cc89aa94417f322670a746d316a.jpg', class="tapa-libro")
+                          td.item-info-xs 
+                              p {{libro.gbook.title}}
+                              p(ng-if="!libro.gbook.title").
+                                  No hay información disponible
+                          td.item-info-xs    
+                              p {{libro.precio}}
+                              p(ng-if="!libro.precio").
+                                   No hay información disponible
+                          td.item-info-xs    
+                              p {{libro.ranking_up}}
+                          td.item-info-xs    
+                              p {{libro.ranking_down}}     
