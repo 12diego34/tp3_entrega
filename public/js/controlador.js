@@ -24,19 +24,17 @@ function MostrarLibrosController($scope, $http, $routeParams) {
                 console.log('Error:' + data);
             });
     };
-/*
+
     $scope.editarPrecio = function(id) {
         $http.put('/l/update/' + id)
-        .success(function(data) {
-                $scope.newLibro = {}; // Borramos los datos del formulario
-                $scope.libros = data;
-                $scope.selected = false;
+        .success(function(precio) {
+                $scope.libro.precio = precio
             })
         .error(function(data) {
             console.log('Error: ' + data);
         });
     };
-*/
+    
     $scope.up = function($scope) {
         $scope.ranking_up = 0;
     }
@@ -45,19 +43,7 @@ function MostrarLibrosController($scope, $http, $routeParams) {
         $scope.ranking_down = 0;
     }
 }
-  /*  
-function DownController($scope, $http, $routeParams) {
-    $scope.resultados = {};       
-    $http.get('/l/all')
-        .success(function(data) {
-            $scope.libros = data;
-            console.log(data)
-        })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
-}
-*/
+
 
 function ShowBookController($scope, $http, $routeParams) {
     $scope.showBook = function(){
@@ -114,6 +100,4 @@ function SearchBookController($scope, $http, $routeParams) {
             console.log('Error: ' + data);
         });
     };
-
-  
 */

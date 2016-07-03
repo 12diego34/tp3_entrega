@@ -6,10 +6,15 @@ block catalogo
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
     
   body(ng-controller="MostrarLibrosController")
-    .container
-      .jumbotron.text-center(ng-prueba='')
+    .container      
+      .form-group.text-center
+          br
+          br
           h3
-            |{{ libros.length }} libros
+            |" {{ libros.length }} libros "
+          input(id='search_term', name='search_term', type='text', 
+                            placeholder='Busque por titulo o precio', ng-model="form.search_term", class="form-control custom-input", valor="form.search_term", required="")
+          h3
           div(ng-if="libros && libros.length > 0" ng-cloak)
               table.table-responsive
                   thead.cabecera-tabla
@@ -26,7 +31,8 @@ block catalogo
                               p {{libro.gbook.title}}
                               p(ng-if="!libro.gbook.title").
                                   No hay información disponible
-                          td.item-info-xs    
+                          td.item-info-xs
+                              button.btn.btn-default(type='button',ng-click="editarPrecio(libro._id)")   
                               p {{libro.precio}}
                               p(ng-if="!libro.precio").
                                    No hay información disponible
