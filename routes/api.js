@@ -44,9 +44,22 @@ router.put('/l/update', function(req, res, next) {
     res.json({ message: 'modificado' });
 });
 
-router.delete('/l/delete', function(req, res, next) {
-    res.json({ message: 'Borrado' });
+router.delete('/l/delete/:id', function(req, res, next) {
+    Libro.remove({
+        _id: req.params.id
+    }, function(err, id) {
+        if(err){
+            res.send(err);
+        }
+        Libro.find(function(err, libros) {
+            if(err){
+                res.send(err);
+            }
+            res.json(libros);
+        });
+    })
 });
+
 
 //GOOGLE SEARCH
 router.get('/search/:title', function(req, res, next) {

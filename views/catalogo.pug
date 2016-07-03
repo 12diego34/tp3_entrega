@@ -18,6 +18,7 @@ block catalogo
                           th Precio
                           th Up
                           th Down
+                          th Opciones
                   tbody
                       tr(ng-repeat="libro in libros")
                           td(ng-if="libro.thumbnail"): img(ng-src="{{libro.thumbnail}}", class="tapa-libro")
@@ -35,3 +36,5 @@ block catalogo
                               p {{libro.ranking_up}}
                           td.item-info-xs    
                               p {{libro.ranking_down}}     
+                          td.item-info-xs
+                            button.btn.glyphicon.glyphicon-remove(type='button',ng-click="delete(libro._id)")

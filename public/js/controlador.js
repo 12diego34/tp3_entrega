@@ -3,8 +3,36 @@ angular.module('myApp', ["ngRoute"])
 .controller('ShowBookController', ShowBookController)
 .controller('SearchBookController', SearchBookController)
 
-
 function MostrarLibrosController($scope, $http, $routeParams) {
+    $scope.formData = {};       
+    $http.get('/l/all')
+        .success(function(data) {
+            $scope.libros = data;
+            console.log(data)
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+
+    $scope.delete = function(id) {
+        $http.delete('/l/delete/' + id)
+            .success(function(data) {
+                $scope.libros = data;
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('Error:' + data);
+            });
+    };
+}
+/*
+function UpController($scope) {
+    function($scope) {
+    $scope.ranking_up = 0;
+
+});
+    
+function DownController($scope, $http, $routeParams) {
     $scope.resultados = {};       
     $http.get('/l/all')
         .success(function(data) {
@@ -15,6 +43,7 @@ function MostrarLibrosController($scope, $http, $routeParams) {
             console.log('Error: ' + data);
         });
 }
+*/
 
 function ShowBookController($scope, $http, $routeParams) {
     $scope.showBook = function(){
@@ -107,22 +136,3 @@ function SearchBookController($scope, $http, $routeParams) {
 }
 */
 
-/*
-function UpController($scope) {
-    function($scope) {
-    $scope.ranking_up = 0;
-
-});
-    
-function DownController($scope, $http, $routeParams) {
-    $scope.resultados = {};       
-    $http.get('/l/all')
-        .success(function(data) {
-            $scope.libros = data;
-            console.log(data)
-        })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
-}
-*/
