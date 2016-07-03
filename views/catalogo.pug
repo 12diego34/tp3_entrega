@@ -37,7 +37,7 @@ block catalogo
                               p(ng-if="!libro.precio").
                                    No hay información disponible
                           td.item-info-xs    
-                            button.btn.btn-default(type='button',ng-click="up(libro.ranking_up =libro.ranking_up+1)")
+                            button.btn.btn-default(type='button',ng-click="up(libro.ranking_up=libro.ranking_up +1)")
                               p {{libro.ranking_up}}
                           td.item-info-xs 
                             button.btn.btn-default(type='button',ng-click="down(libro.ranking_down =libro.ranking_down-1)")   

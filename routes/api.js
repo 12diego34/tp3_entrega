@@ -74,7 +74,6 @@ router.delete('/l/delete/:id', function(req, res, next) {
     })
 });
 
-
 //GOOGLE SEARCH
 router.get('/search/:title', function(req, res, next) {
     var termino = req.params.title;
@@ -85,28 +84,26 @@ router.get('/search/:title', function(req, res, next) {
     books.search(termino, options, function(error, results) {
         if ( ! error )
             results.forEach(function(l) {
-                (new Libro({ precio: 100, ranking: 0, gbook: l })).save();
+                (new Libro({ precio: 100, ranking_up: 0,ranking_down: 0, gbook: l })).save();
             });
             res.json(results);
     });
 });
 
-exports.up = function (req, res, next) {
-    var id = req.params.id;
-    rankear(id, res, {ranking_up: 1});   
-}
-
-exports.down = function (req, res, next) {
-    var id = req.params.id;
-    rankear(id, res, {ranking_down: 1});   
-}
-
-function rankear(id, res, next){
-    Libro.findOne({_id: req.params.id}, function(error, libro) {
-        libro.save().then(function (libro) {
-        res.json(libro);
-        });
+router.post('/rankingUp/:id',function(req, res, next){
+    Libro.find({_id:req.params.id}, function(err,ranking_up){
+        var valor = req.params.ranking_up;
+        req.params.ranking_up = valor + 1;
+        //Libro.save();
     });
-}
+});
+
+router.post('/rankingDown/:id',function(req, res, next){
+    Libro.find({_id:req.params.id}, function(err,ranking_down){
+        var valor = req.params.ranking_down;
+        req.params.ranking_down = valor + 1;
+        req.params.ranking_down.save();
+    });
+});
 
 module.exports = router; 

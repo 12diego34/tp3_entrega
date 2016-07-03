@@ -25,25 +25,28 @@ function MostrarLibrosController($scope, $http, $routeParams) {
             });
     };
 
+/*
     $scope.editarPrecio = function(id) {
         $http.put('/l/update/' + id)
         .success(function(precio) {
                 $scope.libro.precio = precio
-            })
+            });
         .error(function(data) {
             console.log('Error: ' + data);
         });
+    });
+*/
+    $scope.up = function(id,$scope) {
+        $http.post('/rankingUp/:id' + id)
+        .success(function(ranking_up){
+            $scope.ranking_up = 0;
+        });
     };
-    
-    $scope.up = function($scope) {
-        $scope.ranking_up = 0;
-    }
 
     $scope.down = function($scope) {
         $scope.ranking_down = 0;
-    }
+    };
 }
-
 
 function ShowBookController($scope, $http, $routeParams) {
     $scope.showBook = function(){
