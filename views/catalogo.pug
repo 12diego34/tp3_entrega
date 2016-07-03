@@ -21,9 +21,7 @@ block catalogo
                           th Opciones
                   tbody
                       tr(ng-repeat="libro in libros")
-                          td(ng-if="libro.thumbnail"): img(ng-src="{{libro.thumbnail}}", class="tapa-libro")
-                          td(ng-if="!libro.thumbnail && libro.imageLinks"): img(ng-src="libro.imageLinks.thumbnail", class="tapa-libro")
-                          td(ng-if="!libro.thumbnail && !libro.imageLinks"): img(ng-src='https://s-media-cache-ak0.pinimg.com/236x/19/c8/9c/19c89cc89aa94417f322670a746d316a.jpg', class="tapa-libro")
+                          td(ng-if="libro.gbook.thumbnail"): img(ng-src="{{libro.gbook.thumbnail}}", class="tapa-libro")
                           td.item-info-xs 
                               p {{libro.gbook.title}}
                               p(ng-if="!libro.gbook.title").
@@ -33,8 +31,10 @@ block catalogo
                               p(ng-if="!libro.precio").
                                    No hay información disponible
                           td.item-info-xs    
+                            button.btn.btn-default(type='button',ng-click="up(libro.ranking_up =libro.ranking_up+1)")
                               p {{libro.ranking_up}}
-                          td.item-info-xs    
+                          td.item-info-xs 
+                            button.btn.btn-default(type='button',ng-click="down(libro.ranking_down =libro.ranking_down-1)")   
                               p {{libro.ranking_down}}     
                           td.item-info-xs
                             button.btn.glyphicon.glyphicon-remove(type='button',ng-click="delete(libro._id)")

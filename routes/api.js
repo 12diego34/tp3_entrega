@@ -33,6 +33,18 @@ router.get('/l/:id', function(req, res, next) {
     });
 });
 
+router.get('/l/:title', function(req, res, next) {
+    Libro.findOne({title: req.params.title}, function(error, libro) {
+        res.json(libro);
+    });
+});
+
+router.get('/l/:precio', function(req, res, next) {
+    Libro.findOne({precio: req.params.precio}, function(error, libro){
+        res.json(libro);
+    });
+});
+
 router.post('/l/new', function(req, res, next) {
     var libro = new Libro(req.body);
     libro.save().then(function (libro) {
@@ -40,10 +52,12 @@ router.post('/l/new', function(req, res, next) {
     });
 });
 
-router.put('/l/update', function(req, res, next) {
+/*FALTA HACER ESTE*/
+router.put('/l/update/:id', function(req, res, next) {
     res.json({ message: 'modificado' });
 });
 
+/*Elimina un libro especifico*/
 router.delete('/l/delete/:id', function(req, res, next) {
     Libro.remove({
         _id: req.params.id

@@ -24,14 +24,28 @@ function MostrarLibrosController($scope, $http, $routeParams) {
                 console.log('Error:' + data);
             });
     };
-}
 /*
-function UpController($scope) {
-    function($scope) {
-    $scope.ranking_up = 0;
+    $scope.editarPrecio = function(id) {
+        $http.put('/l/update/' + id)
+        .success(function(data) {
+                $scope.newLibro = {}; // Borramos los datos del formulario
+                $scope.libros = data;
+                $scope.selected = false;
+            })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+    };
+*/
+    $scope.up = function($scope) {
+        $scope.ranking_up = 0;
+    }
 
-});
-    
+    $scope.down = function($scope) {
+        $scope.ranking_down = 0;
+    }
+}
+  /*  
 function DownController($scope, $http, $routeParams) {
     $scope.resultados = {};       
     $http.get('/l/all')
@@ -101,38 +115,5 @@ function SearchBookController($scope, $http, $routeParams) {
         });
     };
 
-    // Función para editar los datos de un libro
-    $scope.modificarLibro = function(newLibro) {
-        $http.put('/l/update/' + $scope.newLibro._id, $scope.newLibro)
-        .success(function(data) {
-                $scope.newLibro = {}; // Borramos los datos del formulario
-                $scope.libros = data;
-                $scope.selected = false;
-            })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
-    };
-
-    // Función que borra un objeto libro conocido su id
-    $scope.borrarLibro = function(newLibro) {
-        $http.delete('/l/delete/' + $scope.newLibro._id)
-        .success(function(data) {
-            $scope.newLibro = {};
-            $scope.libros = data;
-            $scope.selected = false;
-        })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
-    };
-
-    // Función para coger el objeto seleccionado en la tabla
-    $scope.selectLibro = function(libro) {
-        $scope.newLibro = libro;
-        $scope.selected = true;
-        console.log($scope.newLibro, $scope.selected);
-    };
-}
+  
 */
-
