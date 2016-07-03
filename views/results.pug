@@ -18,18 +18,18 @@ div(class="listado")
                             p {{resultado.gbook.title}}
                             p(ng-if="!resultado.gbook.title").
                                 No hay información disponible
-                        //td.item-info-xs    
-                            //p {{resultado.authors}}
-                            //p(ng-if="!resultado.authors").
-                                 //No hay información disponible
-                        //td.item-info-xs 
-                            //p {{resultado.publisher}}
-                            //p(ng-if="!resultado.publisher").
-                                 //No hay información disponible
-                        //td.item-info-xs    
-                            //p {{resultado.pageCount}}
-                            //p(ng-if="!resultado.pageCount").
-                                 //No hay información disponible
+                        td.item-info-xs    
+                            p {{resultado.authors}}
+                            p(ng-if="!resultado.authors").
+                                 No hay información disponible
+                        td.item-info-xs 
+                            p {{resultado.publisher}}
+                            p(ng-if="!resultado.publisher").
+                                 No hay información disponible
+                        td.item-info-xs    
+                            p {{resultado.pageCount}}
+                            p(ng-if="!resultado.pageCount").
+                                 No hay información disponible
 
 
         div(ng-if="resultados && resultados.length === 0 && busqueda" ng-cloak)

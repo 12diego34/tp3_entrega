@@ -74,19 +74,52 @@ router.delete('/l/delete/:id', function(req, res, next) {
     })
 });
 
+exports.books = function(req, res, next) {
+    var titulos = [];
+    Libro.find({}, function(err, libros) {
+        libros.forEach(function(libro){
+            titulos.push(libro.data.title);
+        })
+        res.json({ books: titulos});  
+    });
+}
+
+exports.show = function(req, res, next) {
+    var book_id = req.params.id;
+    if(book_id){
+        books.lookup(book_id, function(error, result) {
+            res.json({ book: result });
+        });
+    }else
+        res.json({ book: "error: especificar un id de libro correcto"});
+}
+
+router.get('/show/:id', function(req, res, next){
+    var book_id = req.params.id;
+    if(book_id){
+        books.lookup(book_id, function(error, result) {
+            res.json({ book: result });
+        });
+    }else
+        res.json({ book: "error: especificar un id de libro correcto"});
+});
+
 //GOOGLE SEARCH
 router.get('/search/:title', function(req, res, next) {
     var termino = req.params.title;
     var options = {
-        'limit': req.query.limit || 1,
+        'limit': req.query.limit || 5,
         'offset': req.query.offset || 10 
     };
-    books.search(termino, options, function(error, results) {
-        if ( ! error )
-            results.forEach(function(l) {
+        books.search(termino, options, function(error, result) {
+        if ( ! error ){
+            res.json({ resultados: result });
+        }
+            /*results.forEach(function(l) {
                 (new Libro({ precio: 100, ranking_up: 0,ranking_down: 0, gbook: l })).save();
             });
             res.json(results);
+            */
     });
 });
 

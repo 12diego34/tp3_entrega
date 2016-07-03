@@ -51,7 +51,8 @@ function MostrarLibrosController($scope, $http, $routeParams) {
 function ShowBookController($scope, $http, $routeParams) {
     $scope.showBook = function(){
         var id = this.resultado.id;
-        $http.get('/books/show/' + id)
+        console.log(id);
+        $http.get('api/show/' + id)
             .then(function(result){
                 console.log(JSON.stringify(result.data.book, null, 2));
                 var book = result.data.book;
@@ -70,7 +71,9 @@ function SearchBookController($scope, $http, $routeParams) {
     $scope.sendForm = function () {
         $scope.buscando = true;
         $http.get('api/search/'+$scope.form.search_term)
+            //.success(function(data){
             .then(function(result) {
+                $scope.form = true;
                 $scope.busqueda = true;
                 $scope.buscando = false;
                 $scope.resultados = result.data.resultados;
