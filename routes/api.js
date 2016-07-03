@@ -88,14 +88,13 @@ router.get('/show/:id', function(req, res, next){
 //GOOGLE SEARCH
 router.get('/search/:title', function(req, res, next) {
     var termino = req.params.title;
-    var options = {
-        'limit': req.query.limit || 5,
-        'offset': req.query.offset || 10 
-    };
+    var options = {'limit': 1, field: 'title', type: 'books', order: 'relevance'};
         books.search(termino, options, function(error, result) {
-        if ( ! error ){
+        if ( ! error )
+            result.forEach(function(l) {
+                (new Libro({ precio: 100, ranking: 0, gbook: l })).save();
+            });
             res.json({ resultados: result });
-        }
             /*results.forEach(function(l) {
                 (new Libro({ precio: 100, ranking_up: 0,ranking_down: 0, gbook: l })).save();
             });
