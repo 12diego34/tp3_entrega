@@ -1,5 +1,8 @@
 angular.module('myApp', ["ngRoute"])
 .controller('MostrarLibrosController', MostrarLibrosController)
+.controller('ShowBookController', ShowBookController)
+.controller('SearchBookController', SearchBookController)
+
 
 function MostrarLibrosController($scope, $http, $routeParams) {
     $scope.resultados = {};       
@@ -12,32 +15,29 @@ function MostrarLibrosController($scope, $http, $routeParams) {
             console.log('Error: ' + data);
         });
 }
-/*
-function UpController($scope) {
-    function($scope) {
-    $scope.ranking_up = 0;
 
-});
-    
-function DownController($scope, $http, $routeParams) {
-    $scope.resultados = {};       
-    $http.get('/l/all')
-        .success(function(data) {
-            $scope.libros = data;
-            console.log(data)
-        })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
+function ShowBookController($scope, $http, $routeParams) {
+    $scope.showBook = function(){
+        var id = this.resultado.id;
+        $http.get('/books/show/' + id)
+            .then(function(result){
+                console.log(JSON.stringify(result.data.book, null, 2));
+                var book = result.data.book;
+                var $title = $('#modal-info-libro .modal-title .titulo');
+            }, function(error){
+                console.log("error!", error.responseText);
+            });
+    }
 }
-*/
+
 function SearchBookController($scope, $http, $routeParams) {
     $scope.form = {};
     $scope.resultados = {};
     $scope.busqueda = false;
+    $scope.form.search_term = $('#hidden_search_term').val();
     $scope.sendForm = function () {
         $scope.buscando = true;
-        $http.post('api/search/:title', $scope.form)
+        $http.get('api/search/'+$scope.form.search_term)
             .then(function(result) {
                 $scope.busqueda = true;
                 $scope.buscando = false;
@@ -104,5 +104,25 @@ function SearchBookController($scope, $http, $routeParams) {
         $scope.selected = true;
         console.log($scope.newLibro, $scope.selected);
     };
+}
+*/
+
+/*
+function UpController($scope) {
+    function($scope) {
+    $scope.ranking_up = 0;
+
+});
+    
+function DownController($scope, $http, $routeParams) {
+    $scope.resultados = {};       
+    $http.get('/l/all')
+        .success(function(data) {
+            $scope.libros = data;
+            console.log(data)
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
 }
 */

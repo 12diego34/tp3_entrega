@@ -52,7 +52,7 @@ router.delete('/l/delete', function(req, res, next) {
 router.get('/search/:title', function(req, res, next) {
     var termino = req.params.title;
     var options = {
-        'limit': req.query.limit || 10,
+        'limit': req.query.limit || 1,
         'offset': req.query.offset || 10 
     };
     books.search(termino, options, function(error, results) {

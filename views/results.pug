@@ -1,5 +1,5 @@
 div(class="listado")
-    div(class="col-xs-12 col-lg-8 col-lg-offset-2", ng-controller="myCtrl")
+    div(class="col-xs-12 col-lg-8 col-lg-offset-2", ng-controller="ShowBookController")
         div(ng-if="resultados && resultados.length > 0" ng-cloak)
             br
             table.table-responsive
@@ -15,23 +15,23 @@ div(class="listado")
                         td(ng-if="!resultado.thumbnail && resultado.imageLinks"): img(ng-src="resultado.imageLinks.thumbnail", class="tapa-libro")
                         td(ng-if="!resultado.thumbnail && !resultado.imageLinks"): img(ng-src='https://s-media-cache-ak0.pinimg.com/236x/19/c8/9c/19c89cc89aa94417f322670a746d316a.jpg', class="tapa-libro")
                         td.item-info-xs 
-                            p {{resultado.title}}
-                            p(ng-if="!resultado.title").
+                            p {{resultado.gbook.title}}
+                            p(ng-if="!resultado.gbook.title").
                                 No hay información disponible
-                        td.item-info-xs    
-                            p {{resultado.authors}}
-                            p(ng-if="!resultado.authors").
-                                 No hay información disponible
-                        td.item-info-xs 
-                            p {{resultado.publisher}}
-                            p(ng-if="!resultado.publisher").
-                                 No hay información disponible
-                        td.item-info-xs    
-                            p {{resultado.pageCount}}
-                            p(ng-if="!resultado.pageCount").
-                                 No hay información disponible
+                        //td.item-info-xs    
+                            //p {{resultado.authors}}
+                            //p(ng-if="!resultado.authors").
+                                 //No hay información disponible
+                        //td.item-info-xs 
+                            //p {{resultado.publisher}}
+                            //p(ng-if="!resultado.publisher").
+                                 //No hay información disponible
+                        //td.item-info-xs    
+                            //p {{resultado.pageCount}}
+                            //p(ng-if="!resultado.pageCount").
+                                 //No hay información disponible
 
 
         div(ng-if="resultados && resultados.length === 0 && busqueda" ng-cloak)
             br
-            h4.text-center No se encontraron resultados para "{{form.title}}"
+            h4.text-center No se encontraron resultados para "{{form.gbook.title}}"
