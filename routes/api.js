@@ -74,25 +74,6 @@ router.delete('/l/delete/:id', function(req, res, next) {
     })
 });
 
-exports.books = function(req, res, next) {
-    var titulos = [];
-    Libro.find({}, function(err, libros) {
-        libros.forEach(function(libro){
-            titulos.push(libro.data.title);
-        })
-        res.json({ books: titulos});  
-    });
-}
-
-exports.show = function(req, res, next) {
-    var book_id = req.params.id;
-    if(book_id){
-        books.lookup(book_id, function(error, result) {
-            res.json({ book: result });
-        });
-    }else
-        res.json({ book: "error: especificar un id de libro correcto"});
-}
 
 router.get('/show/:id', function(req, res, next){
     var book_id = req.params.id;
@@ -101,7 +82,7 @@ router.get('/show/:id', function(req, res, next){
             res.json({ book: result });
         });
     }else
-        res.json({ book: "error: especificar un id de libro correcto"});
+        res.json({ book: "error: no se encuentra el libro solicitado"});
 });
 
 //GOOGLE SEARCH

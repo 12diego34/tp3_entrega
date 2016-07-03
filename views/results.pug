@@ -15,8 +15,8 @@ div(class="listado")
                         td(ng-if="!resultado.thumbnail && resultado.imageLinks"): img(ng-src="resultado.imageLinks.thumbnail", class="tapa-libro")
                         td(ng-if="!resultado.thumbnail && !resultado.imageLinks"): img(ng-src='https://s-media-cache-ak0.pinimg.com/236x/19/c8/9c/19c89cc89aa94417f322670a746d316a.jpg', class="tapa-libro")
                         td.item-info-xs 
-                            p {{resultado.gbook.title}}
-                            p(ng-if="!resultado.gbook.title").
+                            p {{resultado.title}}
+                            p(ng-if="!resultado.title").
                                 No hay información disponible
                         td.item-info-xs    
                             p {{resultado.authors}}

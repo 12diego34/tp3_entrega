@@ -52,9 +52,8 @@ function ShowBookController($scope, $http, $routeParams) {
     $scope.showBook = function(){
         var id = this.resultado.id;
         console.log(id);
-        $http.get('api/show/' + id)
+        $http.get('api/show/'+id)
             .then(function(result){
-                console.log(JSON.stringify(result.data.book, null, 2));
                 var book = result.data.book;
                 var $title = $('#modal-info-libro .modal-title .titulo');
             }, function(error){
@@ -71,7 +70,6 @@ function SearchBookController($scope, $http, $routeParams) {
     $scope.sendForm = function () {
         $scope.buscando = true;
         $http.get('api/search/'+$scope.form.search_term)
-            //.success(function(data){
             .then(function(result) {
                 $scope.form = true;
                 $scope.busqueda = true;
