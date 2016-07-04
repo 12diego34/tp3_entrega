@@ -92,7 +92,7 @@ router.get('/search/:title', function(req, res, next) {
         books.search(termino, options, function(error, result) {
         if ( ! error )
             result.forEach(function(l) {
-                (new Libro({ precio: 100, ranking: 0, gbook: l })).save();
+                (new Libro({ precio: 100, ranking_up: 0,ranking_down: 0,gbook: l })).save();
             });
             res.json({ resultados: result });
             /*results.forEach(function(l) {
