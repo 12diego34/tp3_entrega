@@ -33,17 +33,6 @@ router.get('/l/:id', function(req, res, next) {
     });
 });
 
-router.get('/l/:title', function(req, res, next) {
-    Libro.findOne({title: req.params.title}, function(error, libro) {
-        res.json(libro);
-    });
-});
-
-router.get('/l/:precio', function(req, res, next) {
-    Libro.findOne({precio: req.params.precio}, function(error, libro){
-        res.json(libro);
-    });
-});
 
 router.post('/l/new', function(req, res, next) {
     var libro = new Libro(req.body);
@@ -84,69 +73,48 @@ router.get('/show/:id', function(req, res, next){
     }else
         res.json({ book: "error: no se encuentra el libro solicitado"});
 });
-
 //GOOGLE SEARCH
 router.get('/search/:title', function(req, res, next) {
     var termino = req.params.title;
-    var options = {'limit': 1, field: 'title', type: 'books', order: 'relevance'};
-        books.search(termino, options, function(error, result) {
-            res.json({ resultados: result });
-        
-            /*    if (error){
-                res.send(err);
-            }else{
-                result.forEach(function(l) {
-                    (new Libro({ precio: 100, ranking_up: 0,ranking_down: 0,gbook: l })).save();
-                });
-            res.json({ resultados: result });
-            }
-            /*results.forEach(function(l) {
-                (new Libro({ precio: 100, ranking_up: 0,ranking_down: 0, gbook: l })).save();
+    var options = {
+        'limit': req.query.limit || 3,
+        'offset': req.query.offset || 10 
+    };
+    books.search(termino, options, function(error, results) {
+        if ( ! error ){
+            results.forEach(function(l) {
+                var idgoogle = l.id;
+                (new Libro({id:idgoogle, precio: 100, ranking_up: 0, ranking_down:0, gbook: l })).save();
             });
-            res.json(results);
-            */
+        };
+            res.json({resultados: results});
     });
 });
 
-
-/*
-//GOOGLE SEARCH
-router.get('/search/:title', function(req, res, next) {
-    var termino = req.params.title;
-    var options = {'limit': 10, field: 'title', type: 'books', order: 'relevance'};
-        books.search(termino, options, function(error, result) {
-            if (error){
-                res.send(err);
-            }else
-            {
-                result.forEach(function(result,error) {
-                    if (error){
-                       res.send(err);
-                    }
-                   (new Libro({ precio: 1, ranking_up: 0,ranking_down:0, gbook: result })).save();
-                });
-            res.json({ resultados: result });
-            }
-        });
-});
-
-*/
-router.post('/vote/up/:id', function(req, res, next) {
+router.post('/up/:id', function(req, res, next) {
     var id = req.params.id;
     vote(id, res, {ranking_up: 1});
 });
 
-router.post('/vote/down/:id', function(req, res, next) {
+router.post('/down/:id', function(req, res, next) {
     var id = req.params.id;
     vote(id, res, {ranking_down: -1});
 });
 
 function vote(id, res, vote_field) {
-    Libro.findOneAndUpdate({'id': req.params.id}, {$inc: vote_field}, {new: true, upsert:true}, function(err, local_result){
-        //local_result.save(); 
-        res.json({libro: local_result}); 
+    Libro.findOneAndUpdate({'id': id}, {$inc: vote_field}, {new: true, upsert:true}, function(err, local_result){
+        books.lookup(id, function(error, result) {
+            if (error){
+                res.send(err);
+            }else
+            {
+    
+            //local_result.precio = 100;
+            //local_result.gbook.title = result.title;
+            local_result.save(); 
+            res.json({book: local_result}); 
+            }
         });
-    };
-
-
+    });
+};
 module.exports = router; 

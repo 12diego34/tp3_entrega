@@ -12,6 +12,7 @@ block catalogo
           br
           h3
             |" {{ libros.length }} libros "
+            
           input(id='search_term', name='search_term', type='text', 
                             placeholder='Busque por titulo o precio', ng-model="form.search_term", class="form-control custom-input", valor="form.search_term", required="")
           h3
@@ -31,11 +32,11 @@ block catalogo
                               p(ng-if="!libro.gbook.title").
                                   No hay información disponible
                           td.item-info-xs
-                              button.btn.btn-default(type='button',ng-click="editarPrecio(libro._id)")   
                               p {{libro.precio}}
                               p(ng-if="!libro.precio").
                                    No hay información disponible
-                          td(class="hidden-xs puntaje-large", style="vertical-align: middle")
-                            include puntaje.pug    
+                          td.item-info-xs
+                            p {{libro.ranking_up}}
+                            p {{libro.ranking_down}}
                           td.item-info-xs
                             button.btn.glyphicon.glyphicon-remove(type='button',ng-click="delete(libro._id)")
