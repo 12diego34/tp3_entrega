@@ -28,7 +28,7 @@ router.get('/l/all', function(req, res, next) {
 
 /* un libro especifico. */
 router.get('/l/:id', function(req, res, next) {
-    Libro.findOne({_id: req.params.id}, function(error, libro) {
+    Libro.findOne({id: req.params.id}, function(error, libro) {
         res.json(libro);
     });
 });
@@ -104,23 +104,21 @@ router.get('/search/:title', function(req, res, next) {
 });
 
 router.post('/vote/up/:id', function(req, res, next) {
-    var book_id = req.params.id;
-    vote(book_id, res, {ranking_up: 1});
+    var id = req.params.id;
+    vote(id, res, {ranking_up: 1});
 });
 
 router.post('/vote/down/:id', function(req, res, next) {
-    var book_id = req.params.id;
-    vote(book_id, res, {ranking_down: -1});
+    var id = req.params.id;
+    vote(id, res, {ranking_down: -1});
 });
 
-function vote(book_id, res, vote_field) {
-    Libro.findOneAndUpdate({'book_id': book_id}, {$inc: vote_field}, {new: true, upsert:true}, function(err, local_result){
-        books.lookup(book_id, function(error, libro) {
-            //local_result.title = books.gbook.title;
-            local_result.save(); 
-            res.json({book: local_result}); 
+function vote(id, res, vote_field) {
+    Libro.findOneAndUpdate({'id': req.params.id}, {$inc: vote_field}, {new: true, upsert:true}, function(err, local_result){
+        //local_result.save(); 
+        res.json({libro: local_result}); 
         });
-    });
-}
+    };
+
 
 module.exports = router; 
