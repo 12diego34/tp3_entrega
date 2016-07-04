@@ -1,6 +1,6 @@
 angular.module('myApp', ["ngRoute"])
 .controller('MostrarLibrosController', MostrarLibrosController)
-//.controller('ShowBookController', ShowBookController)
+.controller('ShowBookController', ShowBookController)
 .controller('SearchBookController', SearchBookController)
 .controller('RateBookController',RateBookController)
 
@@ -25,17 +25,6 @@ function MostrarLibrosController($scope, $http, $routeParams) {
                 console.log('Error:' + data);
             });
     };
-    $scope.showBook = function(){
-        var id = this.resultado.id;
-        console.log(id);
-        $http.get('show/'+id)
-            .then(function(result){
-                var book = result.data.book;
-                var $title = $('#modal-info-libro .modal-title .titulo');
-            }, function(error){
-                console.log("error!", error.responseText);
-            });
-    };
 }
 
 function RateBookController($scope, $http) {
@@ -58,8 +47,8 @@ function RateBookController($scope, $http) {
             });       
         }
     }
-}  
-/*  
+} 
+
 function ShowBookController($scope, $http, $routeParams) {
     $scope.showBook = function(){
         var id = this.resultado.id;
@@ -73,7 +62,7 @@ function ShowBookController($scope, $http, $routeParams) {
             });
     }
 }
-*/
+
 function SearchBookController($scope, $http, $routeParams) {
     $scope.form = {};
     $scope.resultados = {};

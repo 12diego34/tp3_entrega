@@ -1,5 +1,3 @@
-link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
-
 .puntaje(ng-controller="RateBookController")
     h4(ng-click="rate('positive', libro.id)", ng-model="pos", ng-init="pos= libro.ranking_up ? libro.ranking_up : 0")
         <span class="glyphicon glyphicon-thumbs-up"></span> {{pos}} 

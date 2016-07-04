@@ -1,6 +1,5 @@
-   
 div(class="listado")
-    div(class="col-xs-12 col-lg-8 col-lg-offset-2", ng-controller="MostrarLibrosController")
+    div(class="col-xs-12 col-lg-8 col-lg-offset-2", ng-controller="ShowBookController")
         div(ng-if="resultados && resultados.length > 0" ng-cloak)
             br
             table.table-responsive
@@ -10,8 +9,6 @@ div(class="listado")
                         th Autor
                         th Editorial
                         th Páginas
-                        th Valoracion
-                        th save
                 tbody
                     tr(ng-repeat="resultado in resultados")
                         td(ng-if="resultado.thumbnail"): img(ng-src="{{resultado.thumbnail}}", class="tapa-libro")
@@ -33,8 +30,6 @@ div(class="listado")
                             p {{resultado.pageCount}}
                             p(ng-if="!resultado.pageCount").
                                  No hay información disponible
-                        td(class="hidden-xs puntaje-large", style="vertical-align: middle")
-                            include puntaje.pug    
                         td.item-info-xs
                             button.btn.glyphicon.glyphicon-remove(type='button',ng-click="")
 

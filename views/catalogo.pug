@@ -36,7 +36,7 @@ block catalogo
                               p(ng-if="!libro.precio").
                                    No hay información disponible
                           td.item-info-xs
-                            p {{libro.ranking_up}}
-                            p {{libro.ranking_down}}
+                             td(class="hidden-xs puntaje-large", style="vertical-align: middle")
+                              include puntaje.pug   
                           td.item-info-xs
                             button.btn.glyphicon.glyphicon-remove(type='button',ng-click="delete(libro._id)")
