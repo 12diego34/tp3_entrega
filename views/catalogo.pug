@@ -21,9 +21,8 @@ block catalogo
                       tr: th Libro
                           th Título
                           th Precio
-                          th Up
-                          th Down
-                          th Opciones
+                          th Valoracion
+                          th Eliminar
                   tbody
                       tr(ng-repeat="libro in libros")
                           td(ng-if="libro.gbook.thumbnail"): img(ng-src="{{libro.gbook.thumbnail}}", class="tapa-libro")
@@ -36,11 +35,7 @@ block catalogo
                               p {{libro.precio}}
                               p(ng-if="!libro.precio").
                                    No hay información disponible
-                          td.item-info-xs    
-                            button.btn.btn-default(type='button',ng-click="up(libro.ranking_up=libro.ranking_up +1)")
-                              p {{libro.ranking_up}}
-                          td.item-info-xs 
-                            button.btn.btn-default(type='button',ng-click="down(libro.ranking_down =libro.ranking_down-1)")   
-                              p {{libro.ranking_down}}     
+                          td(class="hidden-xs puntaje-large", style="vertical-align: middle")
+                            include puntaje.pug    
                           td.item-info-xs
                             button.btn.glyphicon.glyphicon-remove(type='button',ng-click="delete(libro._id)")

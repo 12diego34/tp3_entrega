@@ -103,20 +103,24 @@ router.get('/search/:title', function(req, res, next) {
     });
 });
 
-router.post('/rankingUp/:id',function(req, res, next){
-    Libro.find({_id:req.params.id}, function(err,ranking_up){
-        var valor = req.params.ranking_up;
-        req.params.ranking_up = valor + 1;
-        //Libro.save();
-    });
+router.post('/vote/up/:id', function(req, res, next) {
+    var book_id = req.params.id;
+    vote(book_id, res, {ranking_up: 1});
 });
 
-router.post('/rankingDown/:id',function(req, res, next){
-    Libro.find({_id:req.params.id}, function(err,ranking_down){
-        var valor = req.params.ranking_down;
-        req.params.ranking_down = valor + 1;
-        req.params.ranking_down.save();
-    });
+router.post('/vote/down/:id', function(req, res, next) {
+    var book_id = req.params.id;
+    vote(book_id, res, {ranking_down: -1});
 });
+
+function vote(book_id, res, vote_field) {
+    Libro.findOneAndUpdate({'book_id': book_id}, {$inc: vote_field}, {new: true, upsert:true}, function(err, local_result){
+        books.lookup(book_id, function(error, libro) {
+            //local_result.title = books.gbook.title;
+            local_result.save(); 
+            res.json({book: local_result}); 
+        });
+    });
+}
 
 module.exports = router; 

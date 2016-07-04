@@ -1,0 +1,5 @@
+.puntaje(ng-controller="RateBookController")
+    h4(ng-click="rate('positive', libro.id)", ng-model="pos", ng-init="pos= libro.ranking_up ? libro.ranking_up : 0")
+        <span class="glyphicon glyphicon-thumbs-up"></span> {{pos}} 
+    h4(ng-click="rate('negative', libro.id)", ng-model="neg", ng-init="neg= libro.ranking_down ? libro.ranking_down : 0")
+        <span class="glyphicon glyphicon-thumbs-down"></span> {{neg}} 

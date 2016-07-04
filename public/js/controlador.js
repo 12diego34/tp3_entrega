@@ -2,6 +2,7 @@ angular.module('myApp', ["ngRoute"])
 .controller('MostrarLibrosController', MostrarLibrosController)
 .controller('ShowBookController', ShowBookController)
 .controller('SearchBookController', SearchBookController)
+.controller('RateBookController',RateBookController)
 
 function MostrarLibrosController($scope, $http, $routeParams) {
     $scope.formData = {};       
@@ -24,30 +25,34 @@ function MostrarLibrosController($scope, $http, $routeParams) {
                 console.log('Error:' + data);
             });
     };
-
-/*
-    $scope.editarPrecio = function(id) {
-        $http.put('/l/update/' + id)
-        .success(function(precio) {
-                $scope.libro.precio = precio
-            });
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
-    });
-*/
-    $scope.up = function(id,$scope) {
-        $http.post('/rankingUp/:id' + id)
-        .success(function(ranking_up){
-            $scope.ranking_up = 0;
-        });
-    };
-
-    $scope.down = function($scope) {
-        $scope.ranking_down = 0;
-    };
 }
 
+function RateBookController($scope, $http) {
+    $scope.rate = function (type, book_id) {
+        var url; 
+        /*if(type === 'positive'){
+            $scope.pos += 1;
+            url = '/vote/up/';
+            //console.log('ranking_up', book_id);            
+        }else{
+            if (type === 'negative'){
+                console.log('ranking_down', book_id);
+                $scope.neg -= 1;
+                url = '/vote/down/';
+        }*/
+        $scope.pos += 1;
+        $http.post('/vote/up/' + book_id).success(function(data) {
+                $scope.libros = data;
+                console.log(data);
+        
+        //$http.post(url+ book_id)
+        //.then(function(libro) {
+        //    console.log('libro ', libro);
+        }, function(){
+            console.log('error');
+        });
+        }
+    }
 function ShowBookController($scope, $http, $routeParams) {
     $scope.showBook = function(){
         var id = this.resultado.id;
