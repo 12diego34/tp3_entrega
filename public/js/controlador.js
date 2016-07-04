@@ -52,7 +52,7 @@ function ShowBookController($scope, $http, $routeParams) {
     $scope.showBook = function(){
         var id = this.resultado.id;
         console.log(id);
-        $http.get('api/show/'+id)
+        $http.get('show/'+id)
             .then(function(result){
                 var book = result.data.book;
                 var $title = $('#modal-info-libro .modal-title .titulo');
@@ -69,7 +69,7 @@ function SearchBookController($scope, $http, $routeParams) {
     $scope.form.search_term = $('#hidden_search_term').val();
     $scope.sendForm = function () {
         $scope.buscando = true;
-        $http.get('api/search/'+$scope.form.search_term)
+        $http.get('search/'+$scope.form.search_term)
             .then(function(result) {
                 $scope.form = true;
                 $scope.busqueda = true;
@@ -81,27 +81,3 @@ function SearchBookController($scope, $http, $routeParams) {
             });
     };
 }
-
-/*function LibroController($scope, $http) {
-    $scope.newLibro = {};
-    $scope.libros = {};
-    $scope.selected = false;
-    $http.get('/l/all').success(function(data) {
-        $scope.libros = data;
-    })
-    .error(function(data) {
-        console.log('Error: ' + data);
-    });
-
-    // Función para registrar a un libro
-    $scope.registrarLibro = function() {
-        $http.post('/l/new', $scope.newLibro)
-        .success(function(data) {
-                $scope.newLibro = {}; // Borramos los datos del formulario
-                $scope.libros = data;
-            })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
-    };
-*/

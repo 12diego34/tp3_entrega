@@ -90,11 +90,16 @@ router.get('/search/:title', function(req, res, next) {
     var termino = req.params.title;
     var options = {'limit': 1, field: 'title', type: 'books', order: 'relevance'};
         books.search(termino, options, function(error, result) {
-        if ( ! error )
-            result.forEach(function(l) {
-                (new Libro({ precio: 100, ranking_up: 0,ranking_down: 0,gbook: l })).save();
-            });
             res.json({ resultados: result });
+        
+            /*    if (error){
+                res.send(err);
+            }else{
+                result.forEach(function(l) {
+                    (new Libro({ precio: 100, ranking_up: 0,ranking_down: 0,gbook: l })).save();
+                });
+            res.json({ resultados: result });
+            }
             /*results.forEach(function(l) {
                 (new Libro({ precio: 100, ranking_up: 0,ranking_down: 0, gbook: l })).save();
             });
@@ -103,6 +108,29 @@ router.get('/search/:title', function(req, res, next) {
     });
 });
 
+
+/*
+//GOOGLE SEARCH
+router.get('/search/:title', function(req, res, next) {
+    var termino = req.params.title;
+    var options = {'limit': 10, field: 'title', type: 'books', order: 'relevance'};
+        books.search(termino, options, function(error, result) {
+            if (error){
+                res.send(err);
+            }else
+            {
+                result.forEach(function(result,error) {
+                    if (error){
+                       res.send(err);
+                    }
+                   (new Libro({ precio: 1, ranking_up: 0,ranking_down:0, gbook: result })).save();
+                });
+            res.json({ resultados: result });
+            }
+        });
+});
+
+*/
 router.post('/vote/up/:id', function(req, res, next) {
     var id = req.params.id;
     vote(id, res, {ranking_up: 1});
