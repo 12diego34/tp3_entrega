@@ -2,10 +2,9 @@ angular.module('myApp', ["ngRoute"])
 .controller('MostrarLibrosController', MostrarLibrosController)
 .controller('ShowBookController', ShowBookController)
 .controller('SearchBookController', SearchBookController)
-.controller('RateBookController',RateBookController)
+.controller('RankingController',RankingController)
 
 function MostrarLibrosController($scope, $http, $routeParams) {
-    //$scope.formData = {};       
     $http.get('/l/all')
         .success(function(data) {
             $scope.libros = data;
@@ -27,7 +26,7 @@ function MostrarLibrosController($scope, $http, $routeParams) {
     };
 }
 
-function RateBookController($scope, $http) {
+function RankingController($scope, $http) {
     $scope.rate = function (type, id) {
         if(type === 'positive'){
             $scope.pos += 1;

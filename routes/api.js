@@ -63,7 +63,6 @@ router.delete('/l/delete/:id', function(req, res, next) {
     })
 });
 
-
 router.get('/show/:id', function(req, res, next){
     var book_id = req.params.id;
     if(book_id){
@@ -73,12 +72,14 @@ router.get('/show/:id', function(req, res, next){
     }else
         res.json({ book: "error: no se encuentra el libro solicitado"});
 });
+
 //GOOGLE SEARCH
 router.get('/search/:title', function(req, res, next) {
     var termino = req.params.title;
     var options = {
         'limit': req.query.limit || 3,
-        'offset': req.query.offset || 10 
+        'offset': req.query.offset || 10
+        //field:'title',type:'books',order:'relevance'
     };
     books.search(termino, options, function(error, results) {
         if ( ! error ){
