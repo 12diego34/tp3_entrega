@@ -91,6 +91,10 @@ form {line-height:1.4em;
   border-color: #2fcbe0;
 
 }
+.linea {line-height:1.4em;
+  border-top-style: solid;
+  border-color: #2fcbe0;
+}
 nav {
   display:block;
   width:100%;

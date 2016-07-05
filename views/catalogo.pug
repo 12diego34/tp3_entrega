@@ -6,37 +6,40 @@ block catalogo
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
     
   body(ng-controller="MostrarLibrosController")
-    .container      
-      .form-group.text-center
-          br
-          br
-          h3
-            |" {{ libros.length }} libros "
-            
-          input(id='search_term', name='search_term', type='text', 
-                            placeholder='Busque por titulo o precio', ng-model="form.search_term", class="form-control custom-input", valor="form.search_term", required="")
-          h3
-          div(ng-if="libros && libros.length > 0" ng-cloak)
-              table.table-responsive
-                  thead.cabecera-tabla
-                      tr: th Libro
-                          th Título
-                          th Precio
-                          th Valoracion
-                          th Eliminar
-                  tbody
-                      tr(ng-repeat="libro in libros")
-                          td(ng-if="libro.gbook.thumbnail"): img(ng-src="{{libro.gbook.thumbnail}}", class="tapa-libro")
-                          td.item-info-xs 
-                              p {{libro.gbook.title}}
-                              p(ng-if="!libro.gbook.title").
-                                  No hay información disponible
-                          td.item-info-xs
-                              p {{libro.precio}}
-                              p(ng-if="!libro.precio").
-                                   No hay información disponible
-                          td.item-info-xs
-                             td(class="hidden-xs puntaje-large", style="vertical-align: middle")
-                              include puntaje.pug   
-                          td.item-info-xs
-                            button.btn.glyphicon.glyphicon-remove(type='button',ng-click="delete(libro._id)")
+  .container-fluid
+      div(data-alerts="alerts")
+        img(src='../img/logo.png', alt='')
+        .linea
+      .container      
+        .form-group.text-center
+            br
+            h3
+              |" {{ libros.length }} libros "
+              
+            input(id='search_term', name='search_term', type='text', 
+                              placeholder='Busque por titulo o precio', ng-model="form.search_term", class="form-control custom-input", valor="form.search_term", required="")
+            h3
+            div(ng-if="libros && libros.length > 0" ng-cloak)
+                table.table-responsive
+                    thead.cabecera-tabla
+                        tr: th Libro
+                            th Título
+                            th Precio
+                            th Valoracion
+                            th Eliminar
+                    tbody
+                        tr(ng-repeat="libro in libros")
+                            td(ng-if="libro.gbook.thumbnail"): img(ng-src="{{libro.gbook.thumbnail}}", class="tapa-libro")
+                            td.item-info-xs 
+                                p {{libro.gbook.title}}
+                                p(ng-if="!libro.gbook.title").
+                                    No hay información disponible
+                            td.item-info-xs
+                                p {{libro.precio}}
+                                p(ng-if="!libro.precio").
+                                     No hay información disponible
+                            td.item-info-xs
+                               td(class="hidden-xs puntaje-large", style="vertical-align: middle")
+                                include puntaje.pug   
+                            td.item-info-xs
+                              button.btn.glyphicon.glyphicon-remove(type='button',ng-click="delete(libro._id)")
