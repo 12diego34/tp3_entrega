@@ -4,7 +4,6 @@ block catalogo
   head 
     title Catalogo
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
-    
   body(ng-controller="MostrarLibrosController")
   .container-fluid
       div(data-alerts="alerts")
@@ -26,20 +25,22 @@ block catalogo
                             th Título
                             th Precio
                             th Valoracion
+                            th Puntaje
                             th Eliminar
                     tbody
                         tr(ng-repeat="libro in libros")
                             td(ng-if="libro.gbook.thumbnail"): img(ng-src="{{libro.gbook.thumbnail}}", class="tapa-libro")
                             td.item-info-xs 
-                                p {{libro.gbook.title}}
-                                p(ng-if="!libro.gbook.title").
-                                    No hay información disponible
+                              p {{libro.gbook.title}}
+                              p(ng-if="!libro.gbook.title").
+                                No hay información disponible
                             td.item-info-xs
-                                p {{libro.precio}}
-                                p(ng-if="!libro.precio").
-                                     No hay información disponible
+                              p {{libro.precio}}
+                              p(ng-if="!libro.precio").
+                                No hay información disponible
+                            td(class="hidden-xs puntaje-large", style="vertical-align: middle")
+                              include puntaje.pug   
                             td.item-info-xs
-                               td(class="hidden-xs puntaje-large", style="vertical-align: middle")
-                                include puntaje.pug   
+                              p {{libro.ranking_up}}  
                             td.item-info-xs
                               button.btn.glyphicon.glyphicon-remove(type='button',ng-click="delete(libro._id)")

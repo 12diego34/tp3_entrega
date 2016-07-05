@@ -107,6 +107,8 @@ nav ul li ul li {
 #fourth-block {
 	background: rgb(0, 30, 34);
 }
+
+
 footer {
 	background: none repeat scroll 0 0 #2fcbe0;
 	padding: 1.5em 0;
@@ -155,14 +157,16 @@ p.subtitile {
 	margin: 0 0 3.5em;
 }
 section h3 {
-	font-size: 1.3em;
+	font-size: 2.5em;
 	font-weight: 300;
 	margin: 0.8em 0;
 	text-transform: uppercase;
 }
 section p {
-	font-size: 0.8em;
+	font-size: 1em;
+	font-style: italic;
 }
+
 section h1 {
 	color: #fff;
 	font-size: 2.5em;
