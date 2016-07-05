@@ -63,16 +63,12 @@ function ShowBookController($scope, $http, $routeParams) {
 }
 
 function SearchBookController($scope, $http, $routeParams) {
-    $scope.form = {};
     $scope.resultados = {};
-    $scope.busqueda = false;
-    $scope.form.search_term = $('#hidden_search_term').val();
+    $scope.term = "";
     $scope.sendForm = function () {
         $scope.buscando = true;
-        $http.get('search/'+$scope.form.search_term)
+        $http.get('search/' + $scope.term)
             .then(function(result) {
-                $scope.form = true;
-                $scope.busqueda = true;
                 $scope.buscando = false;
                 $scope.resultados = result.data.resultados;
             }, function(){

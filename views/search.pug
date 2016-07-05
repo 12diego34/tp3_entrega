@@ -13,7 +13,7 @@ block content
                         label(for="search_term") #[h4 Hace tu busqueda acá]
                         br
                         input(id='search_term', name='search_term', type='text', 
-                                placeholder='Ej.: El principito', ng-model="form.search_term", class="form-control custom-input", required="", value="")
+                                placeholder='Ej.: El principito', ng-model="term", class="form-control custom-input", required="", value="")
             div(ng-show="buscando" ng-cloak)
                 .rectangulo
                     br
