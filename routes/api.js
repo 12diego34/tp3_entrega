@@ -33,17 +33,17 @@ router.get('/l/:id', function(req, res, next) {
     });
 });
 
+router.get('/l/:titulo', function(req, res, next) {
+    Libro.findOne({titulo:req.params.titulo}, function(error, libro) {
+        res.json(libro);
+    });
+});
 
 router.post('/l/new', function(req, res, next) {
     var libro = new Libro(req.body);
     libro.save().then(function (libro) {
         res.json(libro);
     });
-});
-
-/*FALTA HACER ESTE*/
-router.put('/l/update/:id', function(req, res, next) {
-    res.json({ message: 'modificado' });
 });
 
 /*Elimina un libro especifico*/
@@ -83,8 +83,9 @@ router.get('/search/:title', function(req, res, next) {
     books.search(termino, options, function(error, results) {
         if ( ! error ){
             results.forEach(function(l) {
-                var idgoogle = l.id;
-                (new Libro({id:idgoogle, precio: 100, ranking_up: 0, ranking_down:0, gbook: l })).save();
+
+                
+                (new Libro({id:l.id, titulo: l.title,precio: 100, ranking_up: 0, ranking_down:0, gbook: l })).save();
             });
         };
             res.json({resultados: results});
@@ -108,13 +109,11 @@ function vote(id, res, vote_field) {
                 res.send(err);
             }else
             {
-    
-            //local_result.precio = 100;
-            //local_result.gbook.title = result.title;
             local_result.save(); 
             res.json({book: local_result}); 
             }
         });
     });
 };
+
 module.exports = router; 

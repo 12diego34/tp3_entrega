@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var Libro = new mongoose.Schema({
 	id:Schema.Types.String,
+	titulo:Schema.Types.String,
 	gbook: Schema.Types.Mixed,
 	precio: Schema.Types.Number,
 	ranking_up: {type: Schema.Types.Number, default: 0},
