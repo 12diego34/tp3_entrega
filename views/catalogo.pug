@@ -14,9 +14,10 @@ block catalogo
             br
             h3
               |" {{ libros.length }} libros "
-              
-            input(id='search_term', name='search_term', type='text', 
-                              placeholder='Busque por titulo o precio', ng-model="form.search_term", class="form-control custom-input", valor="form.search_term", required="")
+            div(ng-controller="SearchLocalBookController")  
+              form(id="search-form", ng-submit="sendForm()")
+                br              
+                input(id='search_term', name='search_term', type='text', placeholder='Busca por ISBN...', ng-model="term", class="form-control custom-input", valor="form.search_term", required="")
             h3
             div(ng-if="libros && libros.length > 0" ng-cloak)
                 table.table-responsive

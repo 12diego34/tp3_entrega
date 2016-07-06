@@ -2,9 +2,11 @@ angular.module('myApp', ["ngRoute"])
 .controller('MostrarLibrosController', MostrarLibrosController)
 .controller('ShowBookController', ShowBookController)
 .controller('SearchBookController', SearchBookController)
+.controller('SearchLocalBookController', SearchLocalBookController)
 .controller('RankingController',RankingController)
 
 function MostrarLibrosController($scope, $http, $routeParams) {
+    $scope.libros = [];
     $http.get('/l/all')
         .success(function(data) {
             $scope.libros = data;
@@ -73,6 +75,27 @@ function SearchBookController($scope, $http, $routeParams) {
                 $scope.resultados = result.data.resultados;
             }, function(){
                 $scope.buscando = false;
+                console.log('SearchBookController: hubo un error');
+            });
+    };
+}
+
+function SearchLocalBookController($scope, $http, $routeParams) {
+    $scope.resultados = {};
+    $scope.term = "";
+    $scope.sendForm = function () {
+        //$http.get('show/' + $scope.term)
+        //
+        //$http.get('search/db/' + $scope.term)
+        $http.get('l/' + $scope.term)
+            .then(function(result) {
+                $scope.resultados = result.data.resultados;
+                $scope.$parent.libros = [ $scope.resultados ];
+                console.log($scope.term);
+                console.log($scope.resultados);
+                //console.log($scope.resultados);
+                console.log($scope.$parent.libros);
+            }, function(){
                 console.log('SearchBookController: hubo un error');
             });
     };
